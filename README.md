@@ -247,3 +247,85 @@ button:hover {
     text-align: center;
     color: #333;
 }
+let flashcards = [];
+
+// Função para salvar no localStorage
+function saveFlashcards() {
+    localStorage.setItem('flashcards', JSON.stringify(flashcards));
+}
+
+// Função para carregar flashcards do localStorage
+function loadFlashcards() {
+    const storedFlashcards = localStorage.getItem('flashcards');
+    if (storedFlashcards) {
+        flashcards = JSON.parse(storedFlashcards);
+    }
+}
+
+// Função para criar o HTML de um flashcard
+function createFlashcardElement(flashcard, index) {
+    const flashcardElement = document.createElement('div');
+    flashcardElement.classList.add('flashcard');
+    flashcardElement.innerHTML = `
+        <div class="flashcard-front">
+            <h2 class="category">${flashcard.category}</h2>
+            <p class="question">${flashcard.question}</p>
+        </div>
+        <div class="flashcard-back">
+            <p class="answer">${flashcard.answer}</p>
+        </div>
+    `;
+    return flashcardElement;
+}
+
+// Função para renderizar todos os flashcards na tela
+function renderFlashcards() {
+    const flashcardContainer = document.querySelector('.flashcard-container');
+    flashcardContainer.innerHTML = '';
+
+    flashcards.forEach((flashcard, index) => {
+        const flashcardElement = createFlashcardElement(flashcard, index);
+        flashcardContainer.appendChild(flashcardElement);
+    });
+}
+
+// Função para adicionar um novo flashcard
+document.getElementById('addFlashcard').addEventListener('click', () => {
+    const category = document.getElementById('category').value;
+    const question = document.getElementById('question').value;
+    const answer = document.getElementById('answer').value;
+
+    if (category && question && answer) {
+        flashcards.push({ category, question, answer });
+        saveFlashcards();
+        renderFlashcards();
+        
+        // Limpar o formulário
+        document.getElementById('category').value = '';
+        document.getElementById('question').value = '';
+        document.getElementById('answer').value = '';
+    } else {
+        alert('Por favor, preencha todos os campos!');
+    }
+});
+
+// Navegação entre flashcards
+let currentCardIndex = 0;
+
+document.getElementById('prevCard').addEventListener('click', () => {
+    if (currentCardIndex > 0) {
+        currentCardIndex--;
+        renderFlashcards();
+    }
+});
+
+document.getElementById('nextCard').addEventListener('click', () => {
+    if (currentCardIndex < flashcards.length - 1) {
+        currentCardIndex++;
+        renderFlashcards();
+    }
+});
+
+// Carregar os flashcards do localStorage ao iniciar
+loadFlashcards();
+renderFlashcards();
