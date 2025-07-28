@@ -92,3 +92,35 @@ body {
 document.getElementById('flashcard').addEventListener('click', function () {
     this.classList.toggle('flipped');
 });
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="flashcard-container">
+            <!-- Flashcard será inserido aqui -->
+        </div>
+
+        <!-- Formulário para criar novos flashcards -->
+        <div class="flashcard-form">
+            <input type="text" id="category" placeholder="Categoria" />
+            <input type="text" id="question" placeholder="Pergunta" />
+            <input type="text" id="answer" placeholder="Resposta" />
+            <button id="addFlashcard">Adicionar Flashcard</button>
+        </div>
+
+        <!-- Navegação entre flashcards -->
+        <div class="navigation">
+            <button id="prevCard">Anterior</button>
+            <button id="nextCard">Próximo</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
