@@ -89,3 +89,6 @@ body {
     text-align: center;
     color: #333;
 }
+document.getElementById('flashcard').addEventListener('click', function () {
+    this.classList.toggle('flipped');
+});
